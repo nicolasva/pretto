@@ -34,8 +34,6 @@ class ProjectDecorator  < Draper::Decorator
     h[:tableau_amortissement] += 1 if self.object.project_kind == "achat"
     h[:offre_pret] += 1 if self.object.project_kind == "rachat"
     h[:estimation_bien] += 2 if self.object.project_kind == "rachat"
-
-    # documents avec au moins un élément demandé
     h.select { |_, v| v > 0 }
   end
 end
