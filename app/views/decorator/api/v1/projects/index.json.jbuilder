@@ -1,0 +1,1 @@
+json.array! @projects, :id, :project_kind, :purcent
