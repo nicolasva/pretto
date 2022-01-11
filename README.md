@@ -22,4 +22,4 @@ rails db:seed RAILS_ENV=test
 
 rails s
 ## See the apps
-* http://localhost:3000/bookings
+* http://localhost:3000

@@ -6,16 +6,22 @@ class ProjectService
   def execute
     projects.each do |project|
       mandatory_documents = mandatory_documents(project)
-      documents_finding = mandatory_documents.select { |document_type, document_count|
+      documents_finding = mandatory_documents.select do |document_type, document_count|
         project.documents.where(document: document_type, status: 'validé').count >= document_count
-      }
+      end
 
-      purcent_progress = mandatory_documents.length.zero? ? 0 : ((documents_finding.length / mandatory_documents.length.to_f) * 100).to_i
+      if mandatory_documents.length.zero?
+        purcent_progress = 0
+      else
+        purcent_progress = ((documents_finding.length / mandatory_documents.length.to_f) * 100).to_i
+      end
 
-      project_with_purcentage << { id: project.id, project_kind: project.project_kind, purcent: "#{documents_finding.length}/#{mandatory_documents.length} (#{purcent_progress}%)" }
+      project_with_purcentage << { id: project.id,
+                                   project_kind: project.project_kind,
+                                   purcent: "#{documents_finding.length}/#{mandatory_documents.length} (#{purcent_progress}%)" }
     end
 
-    return project_with_purcentage
+    project_with_purcentage
   end
 
   private
@@ -23,12 +29,12 @@ class ProjectService
   attr_accessor :project_with_purcentage
 
   def initialize(projects)
-    @project_with_purcentage = Array.new
+    @project_with_purcentage = []
     @projects = projects
   end
 
   def mandatory_documents(project)
-    h = { cni: 0,
+    docs = { cni: 0,
           livret_famille: 0,
           bulletins_salaire: 0,
           avis_impots: 0,
@@ -39,16 +45,16 @@ class ProjectService
         }
 
     project.mortgagors.each do |mortgagor|
-      h[:cni] += 1
-      h[:avis_impots] += mortgagor.contract == "salarié" ? 3 : 5
-      h[:bulletins_salaire] += 3 if mortgagor.contract == "salarié"
-      h[:livret_famille] += 1 if mortgagor.civil_status == "marie"
+      docs[:cni] += 1
+      docs[:avis_impots] += mortgagor.contract == "salarié" ? 3 : 5
+      docs[:bulletins_salaire] += 3 if mortgagor.contract == "salarié"
+      docs[:livret_famille] += 1 if mortgagor.civil_status == "marie"
     end
 
-    h[:compromis_vente] += 1 if project.project_kind == "achat"
-    h[:tableau_amortissement] += 1 if project.project_kind == "achat"
-    h[:offre_pret] += 1 if project.project_kind == "rachat"
-    h[:estimation_bien] += 2 if project.project_kind == "rachat"
-    h.select { |_, v| v > 0 }
+    docs[:compromis_vente] += 1 if project.project_kind == "achat"
+    docs[:tableau_amortissement] += 1 if project.project_kind == "achat"
+    docs[:offre_pret] += 1 if project.project_kind == "rachat"
+    docs[:estimation_bien] += 2 if project.project_kind == "rachat"
+    docs.select { |_, v| v > 0 }
   end
 end
