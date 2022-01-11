@@ -1,7 +1,7 @@
-module Html
+module Service
   module Api
     module V1
-      class ProjectsController < HtmlController
+      class ProjectsController < ServiceController
         def index
           #@projects = Project.all
           @projects = ProjectService.call(Project.all)

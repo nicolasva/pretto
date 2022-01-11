@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  namespace :html do
+  namespace :service do
     resources :projects, only: [:index]
 
     namespace :api do 
@@ -23,4 +23,5 @@ Rails.application.routes.draw do
       end
     end
   end
+  root to: 'decorator/projects#index'
 end

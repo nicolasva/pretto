@@ -1,24 +1,25 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development Setup
 
-Things you may want to cover:
+TODO
 
-* Ruby version
+* Ruby ruby-3.1.0-preview1, preferably managed using [rvm][]
+```
+rails db:create
+```
 
-* System dependencies
+```
+rails db:migrate
+```
 
-* Configuration
+```
+rails db:seed
+```
 
-* Database creation
+```
+rails db:seed RAILS_ENV=test
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+rails s
+## See the apps
+* http://localhost:3000/bookings

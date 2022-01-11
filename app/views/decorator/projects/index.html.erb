@@ -1,4 +1,4 @@
-<h1>Liste des projets</h1>
+<h1>Liste des projets avec le decorator</h1>
 <table border=1>
   <thead>
     <tr>
@@ -23,3 +23,7 @@
     <% end %>
   </tbody>
 </table>
+
+<%= link_to "Voir la liste des projets avec le service", service_projects_path %> 
+<br>
+You can call api with : curl -X GET http://localhost:3000/decorator/api/v1/projects.json
