@@ -3,7 +3,7 @@
 
 TODO
 
-* Ruby ruby-3.1.0-preview1, preferably managed using [rvm][]
+* Ruby ruby-3.1.0-preview1, preferably managed using [rvm][] and Rails 7
 ```
 rails db:create
 ```
