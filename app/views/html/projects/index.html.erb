@@ -1,0 +1,25 @@
+<h1>Liste des projets</h1>
+<table border=1>
+  <thead>
+    <tr>
+      <td>
+        id
+      </td>
+      <td>
+        project_kind
+      </td>
+      <td>
+        purcent
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project[:id] %></td>
+        <td><%= project[:project_kind] %></td>
+        <td><%= project[:purcent] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
