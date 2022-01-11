@@ -22,4 +22,6 @@ rails db:seed RAILS_ENV=test
 
 rails s
 ## See the apps
-* http://localhost:3000
+There are two version :
+* webservice : http://localhost:3000/service/projects
+* decorator : http://localhost:3000/decorator/projects
